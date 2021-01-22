@@ -11,13 +11,19 @@ SDL_Window* g_window = nullptr;
 //Function Prototypes
 bool InitSDL();
 void CloseSDL();
+bool Update();
 
 int main(int argc, char* args[])
 {
 	if (InitSDL())
 	{
-		//Delay uses milliseconds
-		SDL_Delay(5000);
+		bool quit = false;
+
+		//Game Loop
+		while (!quit)
+		{
+			quit = Update();
+		}
 	}
 
 	CloseSDL();
@@ -36,6 +42,7 @@ bool InitSDL()
 	else
 	{
 		/*Setup passed
+		* 
 		* Create Window:
 		* returns pointer
 		* 1st- string displayed at top of window
@@ -45,6 +52,7 @@ bool InitSDL()
 		* 4th- int width
 		* 5th- int height
 		* Final- flag to state whether window should be instantly shown
+		* 
 		* Useful flags:
 		* SDL_WINDOW_FULLSCREEN
 		* SDL_WINDOW_INPUT_FOCUS
@@ -77,3 +85,41 @@ void CloseSDL()
 	IMG_Quit();
 	SDL_Quit();
 }
+
+bool Update()
+{
+	//Event handler
+	SDL_Event e;
+
+	//get events
+	SDL_PollEvent(&e);
+
+	//handle the events
+	switch (e.type)
+	{
+		//Click the 'X' to quit
+	case SDL_QUIT:
+		return true;
+		break;
+	case SDL_KEYUP:
+		switch(e.key.keysym.sym)
+		{
+			//Use SDLK for keys
+			//quits application when q is pressed
+		case SDLK_q:
+			return true;
+			break;
+		}
+	}
+	return false;
+}
+
+
+/*SDL events:
+* SDL_QUIT
+* SDL_KEYDOWN
+* SDL_KEYUP
+* SDL_MOUSEMOTION
+* SDL_MOUSEBUTTONDOWN
+* SDL_MOUSEBUTTONUP
+*/
