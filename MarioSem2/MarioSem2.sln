@@ -7,9 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MarioSem2", "MarioSem2\Mari
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01048567-9437-4600-996B-55EBCD5F04BA}"
 	ProjectSection(SolutionItems) = preProject
-		MarioSem2\SDL2\lib\x64\SDL2.lib = MarioSem2\SDL2\lib\x64\SDL2.lib
-		MarioSem2\SDL2\lib\x64\SDL2main.lib = MarioSem2\SDL2\lib\x64\SDL2main.lib
-		MarioSem2\SDL2\lib\x64\SDL2test.lib = MarioSem2\SDL2\lib\x64\SDL2test.lib
+		MarioSem2\SDL2\SDL\SDL2.lib = MarioSem2\SDL2\SDL\SDL2.lib
+		MarioSem2\SDL2\SDL\SDL2_image.lib = MarioSem2\SDL2\SDL\SDL2_image.lib
+		MarioSem2\SDL2\SDL\SDL2_mixer.lib = MarioSem2\SDL2\SDL\SDL2_mixer.lib
+		MarioSem2\SDL2\SDL\SDL2main.lib = MarioSem2\SDL2\SDL\SDL2main.lib
+		MarioSem2\SDL2\SDL\SDL2test.lib = MarioSem2\SDL2\SDL\SDL2test.lib
 	EndProjectSection
 EndProject
 Global
