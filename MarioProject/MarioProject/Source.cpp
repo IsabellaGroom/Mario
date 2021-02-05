@@ -132,7 +132,7 @@ bool Update()
 	//get events
 	SDL_PollEvent(&e);
 
-	//game_screen_manager->ChangeScreen(SCREEN_LEVEL1);
+	
 
 	//handle the events
 	switch (e.type)
@@ -148,6 +148,12 @@ bool Update()
 			//quits application when q is pressed
 		case SDLK_q:
 			return true;
+			break;
+		case SDLK_j:
+			game_screen_manager->ChangeScreen(SCREEN_MENU);
+			break;
+		case SDLK_k:
+			game_screen_manager->ChangeScreen(SCREEN_LEVEL1);
 			break;
 		}
 	}
