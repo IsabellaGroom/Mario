@@ -3,14 +3,16 @@
 #include <SDL_mixer.h>
 #include "constants.h"
 #include "Commons.h"
-#include"Texture2D.h"
+#include "Texture2D.h"
+#include "GameScreenManager.h"
 #include <iostream>
 using namespace std;
 
 //Globals
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_renderer = nullptr;
-Texture2D* g_texture = nullptr;
+GameScreenManager* game_screen_manager;
+Uint32 g_old_time;
 
 //Function Prototypes
 bool InitSDL();
@@ -23,6 +25,11 @@ int main(int argc, char* args[])
 {
 	if (InitSDL())
 	{
+		game_screen_manager = new GameScreenManager(g_renderer, SCREEN_LEVEL1);
+
+		//set the time
+		g_old_time = SDL_GetTicks();
+
 		bool quit = false;
 
 		//Game Loop
@@ -50,12 +57,15 @@ bool InitSDL()
 	{
 		//Setup passed
 
-		g_window = SDL_CreateWindow("Games Engine Creation",
+		g_window = SDL_CreateWindow
+		(
+			"Games Engine Creation",
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
 			SCREEN_WIDTH,
 			SCREEN_HEIGHT,
-			SDL_WINDOW_SHOWN);
+			SDL_WINDOW_SHOWN
+		);
 
 		//checks if window was created
 		if (g_window == nullptr)
@@ -83,11 +93,7 @@ bool InitSDL()
 			}
 
 			//Load the background texture
-			g_texture = new Texture2D(g_renderer);
-			if (!g_texture->LoadFromFile("Images/test.bmp"))
-			{
-				return false;
-			}
+		
 
 		}
 	}
@@ -104,9 +110,10 @@ void CloseSDL()
 	IMG_Quit();
 	SDL_Quit();
 
-	//release the texture
-	delete g_texture;
-	g_texture = nullptr;
+	//destroy the game screen manager
+	delete game_screen_manager;
+	game_screen_manager = nullptr;
+
 
 	//release the renderer
 	SDL_DestroyRenderer(g_renderer);
@@ -116,11 +123,16 @@ void CloseSDL()
 
 bool Update()
 {
+	//Time
+	Uint32 new_time = SDL_GetTicks();
+
 	//Event handler
 	SDL_Event e;
 
 	//get events
 	SDL_PollEvent(&e);
+
+	//game_screen_manager->ChangeScreen(SCREEN_LEVEL1);
 
 	//handle the events
 	switch (e.type)
@@ -139,6 +151,9 @@ bool Update()
 			break;
 		}
 	}
+
+	game_screen_manager->Update((float)(new_time - g_old_time) / 1000.0f, e);
+	
 	return false;
 }
 
@@ -150,7 +165,7 @@ void Render()
 	SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(g_renderer);
 
-	g_texture->Render(Vector2D(), SDL_FLIP_NONE);
+	game_screen_manager->Render();
 	
 	//update the screen
 	SDL_RenderPresent(g_renderer);
