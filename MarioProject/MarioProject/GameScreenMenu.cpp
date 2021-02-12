@@ -16,7 +16,7 @@ bool GameScreenMenu::SetUpLevel()
 {
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
-	if (!m_background_texture->LoadFromFile("Images/BackgroundMB.png"))
+	if (!m_background_texture->LoadFromFile("Images/text.bmp"))
 	{
 		std::cout << "Failed to load background texture" << std::endl;
 		return false;

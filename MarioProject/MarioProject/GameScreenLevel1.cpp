@@ -2,6 +2,9 @@
 #include "Texture2D.h"
 #include <iostream>
 #include "Character.h"
+#include "CharacterMario.h"
+#include "CharacterLuigi.h"
+#include "Collisions.h"
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
 {
@@ -11,19 +14,21 @@ GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer
 GameScreenLevel1::~GameScreenLevel1()
 {
 	m_background_texture = nullptr;
-	delete my_character;
-	my_character = nullptr;
+	delete Mario;
+	delete Luigi;
+	Mario = nullptr;
+	Luigi = nullptr;
 }
 
 bool GameScreenLevel1::SetUpLevel()
 {
 	//set up player character
-	my_character = new Character(m_renderer, "Images/Mario.png", Vector2D(64, 330));
-
+	Mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330));
+	Luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(64, 330));
 
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
-	if (!m_background_texture->LoadFromFile("Images/test.bmp"))
+	if (!m_background_texture->LoadFromFile("Images/BackgroundMB.png"))
 	{
 		std::cout << "Failed to load background texture" << std::endl;
 		return false;
@@ -36,11 +41,24 @@ void GameScreenLevel1::Render()
 	//draw the background
 	m_background_texture->Render(Vector2D(), SDL_FLIP_NONE);
 
-	my_character->Render();
+	Mario->Render();
+	Luigi->Render();
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
 	//update Character
-	my_character->Update(deltaTime, e);
+	Mario->Update(deltaTime, e);
+	Luigi->Update(deltaTime, e);
+
+	if (Collisions::Instance()->Circle(Mario, Luigi))
+	{
+		cout << "Circle hit!" << endl;
+	}
+
+	
+	if (Collisions::Instance()->Box(Mario->GetCollisionBox(), Luigi->GetCollisionBox()))
+	{
+		cout << "Box hit!" << endl;
+	}
 }
