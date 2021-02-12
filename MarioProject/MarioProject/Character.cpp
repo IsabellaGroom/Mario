@@ -11,6 +11,9 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_moving_left = false;
 	m_moving_right = false;
 	m_jump_force = INITIAL_JUMP_FORCE;
+	m_collision_radius = 15.0f;
+	m_can_jump = true;
+	m_jumping = false;
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -39,7 +42,7 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
-	cout << "Y: " << m_position.y << " X: " << m_position.x << endl;
+	//cout << "Y: " << m_position.y << " X: " << m_position.x << endl;
 
 	//deal with jumping first
 	if (m_jumping)
@@ -59,8 +62,6 @@ void Character::Update(float deltaTime, SDL_Event e)
 		AddGravity(deltaTime);
 	}
 
-	
-
 	if (m_moving_left)
 	{
 		MoveLeft(deltaTime);
@@ -69,37 +70,10 @@ void Character::Update(float deltaTime, SDL_Event e)
 	{
 		MoveRight(deltaTime);
 	}
-
-	//Poll for events
-	switch (e.type)
-	{
-	case SDL_KEYDOWN:
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_a:
-			m_moving_left = true;
-			break;
-		case SDLK_d:
-			m_moving_right = true;
-			break;
-		}
-		break;
-	case SDL_KEYUP:
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_a:
-			m_moving_left = false;
-			break;
-		case SDLK_d:
-			m_moving_right = false;
-			break;
-		case SDLK_w:
-			Jump();
-		}
-		break;
-	}
-
+	
 }
+
+
 void Character::SetPosition(Vector2D new_position)
 {
 	m_position = new_position;
@@ -160,4 +134,9 @@ void Character::Jump()
 	{
 		m_jumping = true;
 	}
+}
+
+float Character::GetCollisionRadius()
+{
+	return m_collision_radius;
 }
