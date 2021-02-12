@@ -10,6 +10,7 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_facing_direction = FACING_RIGHT;
 	m_moving_left = false;
 	m_moving_right = false;
+	m_jump_force = INITIAL_JUMP_FORCE;
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -38,6 +39,27 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
+	cout << "Y: " << m_position.y << " X: " << m_position.x << endl;
+
+	//deal with jumping first
+	if (m_jumping)
+	{
+		//adjust position
+		m_position.y += m_jump_force * deltaTime;
+
+		//reduce jump force
+		m_jump_force -= JUMP_FORCE_DECREMENT * deltaTime;
+		m_position.y -= m_jump_force * deltaTime;
+
+		//is jump force 0?
+		if (m_jump_force <= 0.0f)
+		{
+			m_jumping = false;
+		}
+		AddGravity(deltaTime);
+	}
+
+	
 
 	if (m_moving_left)
 	{
@@ -71,6 +93,8 @@ void Character::Update(float deltaTime, SDL_Event e)
 		case SDLK_d:
 			m_moving_right = false;
 			break;
+		case SDLK_w:
+			Jump();
 		}
 		break;
 	}
@@ -103,12 +127,37 @@ void Character::MoveRight(float deltaTime)
 
 void Character::AddGravity(float deltaTime)
 {
-	if ((m_position.y + 64) >= SCREEN_HEIGHT)
+	m_jump_force = INITIAL_JUMP_FORCE;
+	//keeps character on the floor
+	if ((m_position.y + 64) <= SCREEN_HEIGHT)
 	{
 		m_position.y += GRAVITY * deltaTime;
+		
+		//strength of gravity
+		
+		//m_can_jump = false;
 	}
 	else
 	{
-		//jump
+		m_can_jump = true;
+	}
+	/*
+	if ((m_position.y + 64) >= 400)
+	{
+		m_position.y -= GRAVITY * deltaTime;
+	}
+	*/
+}
+
+void Character::Jump()
+{
+	if (m_position.y > 360)
+	{
+		m_can_jump = false;
+	}
+
+	if (m_can_jump)
+	{
+		m_jumping = true;
 	}
 }
