@@ -2,6 +2,21 @@
 #include "Texture2D.h"
 #include "constants.h"
 
+
+// Problems with Jump
+/*
+* - Jumps way too high
+* - Jump force does not decrease
+* - m_jumping is always false
+* 
+*/
+
+
+
+
+
+
+
 Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position)
 {
 	m_renderer = renderer;
@@ -52,13 +67,14 @@ void Character::Update(float deltaTime, SDL_Event e)
 
 		//reduce jump force
 		m_jump_force -= JUMP_FORCE_DECREMENT * deltaTime;
-		m_position.y -= m_jump_force * deltaTime;
+		//m_position.y -= m_jump_force * deltaTime;
 
 		//is jump force 0?
 		if (m_jump_force <= 0.0f)
 		{
 			m_jumping = false;
 		}
+		cout << "YES" << endl;
 		AddGravity(deltaTime);
 	}
 
@@ -70,7 +86,8 @@ void Character::Update(float deltaTime, SDL_Event e)
 	{
 		MoveRight(deltaTime);
 	}
-	
+	//cout << m_position.y << endl;
+  //cout << "Time: " << deltaTime << endl;
 }
 
 
@@ -102,8 +119,9 @@ void Character::MoveRight(float deltaTime)
 void Character::AddGravity(float deltaTime)
 {
 	m_jump_force = INITIAL_JUMP_FORCE;
+
 	//keeps character on the floor
-	if ((m_position.y + 64) <= SCREEN_HEIGHT)
+	if ((m_position.y + 64) >= SCREEN_HEIGHT)
 	{
 		m_position.y += GRAVITY * deltaTime;
 		
@@ -125,14 +143,19 @@ void Character::AddGravity(float deltaTime)
 
 void Character::Jump()
 {
-	if (m_position.y > 360)
+	/*
+	if (m_position.y > 360 || m_position.y < 0)
 	{
 		m_can_jump = false;
 	}
-
-	if (m_can_jump)
+	*/
+	if (!m_jumping)
 	{
+		m_jump_force = INITIAL_JUMP_FORCE;
 		m_jumping = true;
+		m_can_jump = false;
+
+		cout << "JUMP()" << endl;
 	}
 }
 
