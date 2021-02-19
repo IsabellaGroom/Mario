@@ -15,6 +15,7 @@ CharacterMario::~CharacterMario()
 
 void CharacterMario::Update(float deltaTime, SDL_Event e)
 {
+
 	//Poll for events
 	switch (e.type)
 	{
@@ -46,5 +47,7 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 		}
 		break;
 	}
+	//cout << m_can_jump << endl;
+	cout << "Jump: " << m_jumping << endl;
 	Character::Update(deltaTime, e);
 }
