@@ -1,8 +1,9 @@
 #include "CharacterMario.h"
+#include <iostream>
 
 CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath, 
-	Vector2D start_position) : 
-	Character(renderer, imagePath, start_position)
+	Vector2D start_position, LevelMap* map) :
+	Character(renderer, imagePath, start_position, map)
 {
 
 }
@@ -31,6 +32,7 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 			if (m_can_jump)
 			{
 				Jump();
+				cout << "JUMP!" << endl;
 			}
 		}
 		break;
@@ -46,5 +48,18 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 		}
 		break;
 	}
+	cout << "Y: " << m_position.y << endl;
+	//cout << m_jump_force << endl;
+	//cout << m_jumping << endl;
+	//cout << m_can_jump << endl;
 	Character::Update(deltaTime, e);
 }
+
+
+
+
+//jumping always yes
+//jump force never reduces
+//never goes into first if statement so:
+//can jump is always true
+

@@ -5,15 +5,17 @@
 #include <iostream>
 #include "Commons.h"
 #include "Texture2D.h"
+#include "LevelMap.h"
 
 using namespace std;
-
 class Texture2D;
 
 class Character
 {
 private:
 	FACING m_facing_direction;
+	LevelMap* m_current_level_map;
+
 protected:
 	SDL_Renderer* m_renderer;
 	Vector2D m_position;
@@ -32,7 +34,7 @@ protected:
 	virtual void Jump();
 
 public:
-	Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position);
+	Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map);
 	~Character();
 
 	virtual void Render();

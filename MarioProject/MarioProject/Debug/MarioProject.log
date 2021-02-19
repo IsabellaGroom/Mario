@@ -1,20 +1,22 @@
 ﻿  Character.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   CharacterLuigi.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   CharacterMario.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Collisions.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   GameScreenLevel1.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   GameScreenManager.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(49,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  LevelMap.cpp
+  Source.cpp
   Generating Code...
   MarioProject.vcxproj -> E:\Uni\Mario\MarioProject\Debug\MarioProject.exe
