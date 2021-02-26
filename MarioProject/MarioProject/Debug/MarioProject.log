@@ -1,4 +1,9 @@
-﻿  Character.cpp
+﻿  CharacterLuigi.cpp
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  CharacterMario.cpp
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(47,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  LINK : E:\Uni\Mario\MarioProject\Debug\MarioProject.exe not found or not built by the last incremental link; performing full link
   MarioProject.vcxproj -> E:\Uni\Mario\MarioProject\Debug\MarioProject.exe

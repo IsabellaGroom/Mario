@@ -29,7 +29,7 @@ protected:
 	virtual void MoveLeft(float deltaTime);
 	virtual void MoveRight(float deltaTime);
 	virtual void AddGravity(float deltaTime);
-	virtual void Jump();
+	virtual void Jump(float deltaTime);
 
 public:
 	Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position);

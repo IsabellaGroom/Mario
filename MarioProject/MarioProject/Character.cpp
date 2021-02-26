@@ -121,13 +121,11 @@ void Character::AddGravity(float deltaTime)
 	m_jump_force = INITIAL_JUMP_FORCE;
 
 	//keeps character on the floor
-	if ((m_position.y + 64) >= SCREEN_HEIGHT)
+	if ((m_position.y + 64) >= FLOOR)
 	{
 		m_position.y += GRAVITY * deltaTime;
 		
 		//strength of gravity
-		
-		//m_can_jump = false;
 	}
 	else
 	{
@@ -141,7 +139,7 @@ void Character::AddGravity(float deltaTime)
 	*/
 }
 
-void Character::Jump()
+void Character::Jump(float deltaTime)
 {
 	/*
 	if (m_position.y > 360 || m_position.y < 0)
@@ -157,6 +155,8 @@ void Character::Jump()
 
 		cout << "JUMP()" << endl;
 	}
+
+	AddGravity(deltaTime);
 }
 
 float Character::GetCollisionRadius()
