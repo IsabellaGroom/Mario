@@ -1,8 +1,8 @@
 #include "CharacterLuigi.h"
 
 CharacterLuigi::CharacterLuigi(SDL_Renderer* renderer, string imagePath,
-	Vector2D start_position) :
-	Character(renderer, imagePath, start_position)
+	Vector2D start_position, LevelMap* map) :
+	Character(renderer, imagePath, start_position, map)
 {
 	m_position.x = 200;
 

@@ -12,12 +12,7 @@
 */
 
 
-
-
-
-
-
-Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position)
+Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map)
 {
 	m_renderer = renderer;
 	m_position = start_position;
@@ -29,6 +24,7 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_collision_radius = 15.0f;
 	m_can_jump = true;
 	m_jumping = false;
+	m_current_level_map = map;
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -62,19 +58,21 @@ void Character::Update(float deltaTime, SDL_Event e)
 	//deal with jumping first
 	if (m_jumping)
 	{
-		//adjust position
-		m_position.y += m_jump_force * deltaTime;
+		//adjust position  dt
+		m_position.y -= m_jump_force;
 
-		//reduce jump force
-		m_jump_force -= JUMP_FORCE_DECREMENT * deltaTime;
+		//reduce jump force  dt
+		m_jump_force -= JUMP_FORCE_DECREMENT ;
 		//m_position.y -= m_jump_force * deltaTime;
 
 		//is jump force 0?
 		if (m_jump_force <= 0.0f)
 		{
+			//stop jumping
 			m_jumping = false;
 		}
 		cout << "YES" << endl;
+		//fall
 		AddGravity(deltaTime);
 	}
 
@@ -86,6 +84,27 @@ void Character::Update(float deltaTime, SDL_Event e)
 	{
 		MoveRight(deltaTime);
 	}
+
+	//collision position variables
+	int centralX_position = (int)(m_position.x + (m_texture->GetWidth() * 0.5)
+		/ TILE_WIDTH);
+	int foot_position = (int)(m_position.y + m_texture->GetHeight())
+		/ TILE_HEIGHT;
+
+	//deal with gravity
+	//if in air, fall
+	if (m_current_level_map->GetTileAt(foot_position, centralX_position) == 0)
+	{
+		//always ping this
+		//cout << "LEVEL MAP" << endl;
+		AddGravity(deltaTime);
+	}
+	else
+	{
+		//collided with ground so we can jump again
+		m_can_jump = true;
+	}
+
 	//cout << m_position.y << endl;
   //cout << "Time: " << deltaTime << endl;
 }
@@ -118,13 +137,13 @@ void Character::MoveRight(float deltaTime)
 
 void Character::AddGravity(float deltaTime)
 {
-	m_jump_force = INITIAL_JUMP_FORCE;
+	//m_jump_force = INITIAL_JUMP_FORCE;
 
 	//keeps character on the floor
-	if ((m_position.y + 64) >= FLOOR)
+	if ((m_position.y + 64) <= FLOOR)
 	{
-		m_position.y += GRAVITY * deltaTime;
-		
+		m_position.y += GRAVITY;
+		//dt
 		//strength of gravity
 	}
 	else
@@ -156,7 +175,7 @@ void Character::Jump(float deltaTime)
 		cout << "JUMP()" << endl;
 	}
 
-	AddGravity(deltaTime);
+	//AddGravity(deltaTime);
 }
 
 float Character::GetCollisionRadius()
