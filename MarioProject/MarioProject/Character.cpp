@@ -71,7 +71,7 @@ void Character::Update(float deltaTime, SDL_Event e)
 			//stop jumping
 			m_jumping = false;
 		}
-		cout << "YES" << endl;
+		//cout << "YES" << endl;
 		//fall
 		AddGravity(deltaTime);
 	}
@@ -172,7 +172,7 @@ void Character::Jump(float deltaTime)
 		m_jumping = true;
 		m_can_jump = false;
 
-		cout << "JUMP()" << endl;
+		//cout << "JUMP()" << endl;
 	}
 
 	//AddGravity(deltaTime);
