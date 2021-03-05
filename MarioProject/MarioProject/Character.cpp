@@ -8,7 +8,7 @@
 * - Jumps way too high
 * - Jump force does not decrease
 * - m_jumping is always false
-* 
+*
 */
 
 
@@ -16,15 +16,19 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 {
 	m_renderer = renderer;
 	m_position = start_position;
+	m_current_level_map = map;
 	m_texture = new Texture2D(m_renderer);
 	m_facing_direction = FACING_RIGHT;
-	m_moving_left = false;
-	m_moving_right = false;
 	m_jump_force = INITIAL_JUMP_FORCE;
 	m_collision_radius = 15.0f;
+
+	//bools
+	m_moving_left = false;
+	m_moving_right = false;
 	m_can_jump = true;
 	m_jumping = false;
-	m_current_level_map = map;
+	m_alive = true;
+	
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -62,7 +66,7 @@ void Character::Update(float deltaTime, SDL_Event e)
 		m_position.y -= m_jump_force;
 
 		//reduce jump force  dt
-		m_jump_force -= JUMP_FORCE_DECREMENT ;
+		m_jump_force -= JUMP_FORCE_DECREMENT;
 		//m_position.y -= m_jump_force * deltaTime;
 
 		//is jump force 0?
@@ -71,7 +75,7 @@ void Character::Update(float deltaTime, SDL_Event e)
 			//stop jumping
 			m_jumping = false;
 		}
-		cout << "YES" << endl;
+		//cout << "YES" << endl;
 		//fall
 		AddGravity(deltaTime);
 	}
@@ -124,7 +128,7 @@ void Character::MoveLeft(float deltaTime)
 {
 	m_facing_direction = FACING_LEFT;
 	m_position.x -= MOVESPEED;
-	
+
 }
 
 void Character::MoveRight(float deltaTime)
@@ -132,7 +136,7 @@ void Character::MoveRight(float deltaTime)
 	m_facing_direction = FACING_RIGHT;
 	m_position.x += MOVESPEED;
 	//*deltaTime?
-	
+
 }
 
 void Character::AddGravity(float deltaTime)
@@ -172,7 +176,7 @@ void Character::Jump(float deltaTime)
 		m_jumping = true;
 		m_can_jump = false;
 
-		cout << "JUMP()" << endl;
+		//cout << "JUMP()" << endl;
 	}
 
 	//AddGravity(deltaTime);
@@ -182,3 +186,4 @@ float Character::GetCollisionRadius()
 {
 	return m_collision_radius;
 }
+

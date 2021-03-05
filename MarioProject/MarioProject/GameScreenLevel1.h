@@ -5,7 +5,9 @@
 #include "Commons.h"
 #include "Character.h"
 #include "LevelMap.h"
+#include <vector>
 
+class CharacterKoopa
 class CharacterMario;
 class CharacterLuigi;
 class Texture2D;
@@ -20,10 +22,19 @@ private:
 	CharacterLuigi* Luigi;
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
+	bool m_screenshake;
+	float m_shake_time;
+	float m_wobble;
+	float m_background_yPos;
+	vector<CharacterKoopa*> m_enemies;
+
 
 	//methods
 	bool SetUpLevel();
 	void SetLevelMap();
+	void DoScreenShake();
+	void UpdateEnemies(float deltaTime, SDL_Event e);
+	void CreateKoopa(Vector2D position, FACING direction, float speed);
 
 public:
 	GameScreenLevel1(SDL_Renderer* renderer);

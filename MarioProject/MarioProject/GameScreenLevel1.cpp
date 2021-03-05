@@ -23,6 +23,7 @@ GameScreenLevel1::~GameScreenLevel1()
 	Luigi = nullptr;
 	delete m_pow_block;
 	m_pow_block = nullptr;
+	m_enemies.clear();
 }
 
 bool GameScreenLevel1::SetUpLevel()
@@ -33,6 +34,10 @@ bool GameScreenLevel1::SetUpLevel()
 
 	//load POW
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
+
+	//screenshake variables
+	m_screenshake = false;
+	m_background_yPos = 0.0f;
 
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
@@ -46,23 +51,53 @@ bool GameScreenLevel1::SetUpLevel()
 
 void GameScreenLevel1::Render()
 {
+	//draw enemies
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->Render();
+	}
+
 	//draw the background
-	m_background_texture->Render(Vector2D(), SDL_FLIP_NONE);
-	
+	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
+
 	//draws characters
 	Mario->Render();
 	Luigi->Render();
-	
+
 	//draws POW
 	m_pow_block->Render();
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
+	//shake screen
+	if (m_screenshake)
+	{
+		m_wobble = 10;
+		m_shake_time -= deltaTime;
+		m_wobble++;
+		m_background_yPos = sin(m_wobble);
+		//cout << m_background_yPos << endl;
+		m_background_yPos *= 3.0f;
+
+		//cout << m_wobble << endl;
+		Render();
+
+		//ends after duration
+		if (m_shake_time <= 0.0f)
+		{
+			m_screenshake = false;
+			m_background_yPos = 0.0f;
+		}
+	}
+
 	//update Character
 	Mario->Update(deltaTime, e);
 	Luigi->Update(deltaTime, e);
+
+	//Update functions
 	UpdatePOWBlock();
+	UpdateEnemies(deltaTime, e);
 
 	if (Collisions::Instance()->Circle(Mario, Luigi))
 	{
@@ -76,13 +111,13 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 
 
 	//cout << m_level_map->GetTileAt(Mario->GetPosition().x, Mario->GetPosition().y) << endl;
-	cout << Mario->GetPosition().y << endl;
+	//cout << Mario->GetPosition().y << endl;
 }
 
 void GameScreenLevel1::SetLevelMap()
 {
 	int map[MAP_HEIGHT][MAP_WIDTH] = {
-		              { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+					  { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
 					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 					  { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
 					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
@@ -113,9 +148,79 @@ void GameScreenLevel1::UpdatePOWBlock()
 	{
 		if (Mario->IsJumping())
 		{
-			//DoScreenShake();
+			std::cout << "HIT" << std::endl;
+			DoScreenShake();
 			m_pow_block->TakeHit();
 			Mario->CancelJump();
 		}
 	}
+}
+
+void GameScreenLevel1::DoScreenShake()
+{
+	m_screenshake = true;
+	m_shake_time = SHAKE_DURATION;
+	m_wobble = 0.0f;
+	std::cout << "YEEE" << std::endl;
+}
+
+void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
+{
+	if (!m_enemies.empty())
+	{
+		int enemyIndexToDelete = -1;
+		for (unsigned int i = 0; i < m_enemies.size(); i++)
+		{
+			//check if enemy is on the bottom row of tiles
+			if (m_enemies[i]->GetPosition().y > 300.0f)
+			{
+				//is the enemy off screen?
+				if (m_enemies[i]->GetPosition().x < (float)
+					(-m_enemies[i]->GetCollisionBox.width * 0.5f)
+					|| m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)
+					(m_enemies[i]->GetCollisionBox().width * 0.55f))
+				{
+					m_enemies[i]->SetAlive(false);
+				}
+				//now do the update
+				m_enemies[i]->Update(deltaTime, e);
+
+				//check to see if enemy collides with player
+				if ((m_enemies[i]->GetPosition().y > 300.0f ||
+					m_enemies[i]->GetPosition().y <= 64.0f) &&
+					(m_enemies[i]->GetPosition().x < 64.0f ||
+						m_enemies[i]->GetPosition().x >
+						SCREEN_WIDTH - 96.0f))
+				{
+					//ignore collisions if behind pipe
+				}
+				else
+				{
+					if (Collisions::Instance()->Circle(m_enemies[i], Mario))
+					{
+						if (m_enemies[i]->GetInjured())
+						{
+							m_enemies[i]->SetAlive(false);
+						}
+						else
+						{
+							//kill mario
+						}
+					}
+				}
+
+				//if the enemy is no longer alive then delete
+				if (!m_enemies[i]->GetAlive())
+				{
+					enemyIndexToDelete = i;
+				}
+			}
+			//remove dead enemies -1 each update
+		}
+	}
+}
+
+void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
+{
+
 }
