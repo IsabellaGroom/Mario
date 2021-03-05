@@ -33,6 +33,10 @@ bool GameScreenLevel1::SetUpLevel()
 
 	//load POW
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
+	
+	//screenshake variables
+	m_screenshake = false;
+	m_background_yPos = 0.0f;
 
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
@@ -47,7 +51,7 @@ bool GameScreenLevel1::SetUpLevel()
 void GameScreenLevel1::Render()
 {
 	//draw the background
-	m_background_texture->Render(Vector2D(), SDL_FLIP_NONE);
+	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
 	
 	//draws characters
 	Mario->Render();
@@ -59,6 +63,27 @@ void GameScreenLevel1::Render()
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
+	//shake screen
+	if (m_screenshake)
+	{
+		m_wobble = 10;
+		m_shake_time -= deltaTime;
+		m_wobble++;
+		m_background_yPos = sin(m_wobble);
+		//cout << m_background_yPos << endl;
+		m_background_yPos *= 3.0f;
+
+		//cout << m_wobble << endl;
+		Render();
+
+		//ends after duration
+		if (m_shake_time <= 0.0f)
+		{
+			m_screenshake = false;
+			m_background_yPos = 0.0f;
+		}
+	}
+
 	//update Character
 	Mario->Update(deltaTime, e);
 	Luigi->Update(deltaTime, e);
@@ -76,7 +101,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 
 
 	//cout << m_level_map->GetTileAt(Mario->GetPosition().x, Mario->GetPosition().y) << endl;
-	cout << Mario->GetPosition().y << endl;
+	//cout << Mario->GetPosition().y << endl;
 }
 
 void GameScreenLevel1::SetLevelMap()
@@ -113,9 +138,18 @@ void GameScreenLevel1::UpdatePOWBlock()
 	{
 		if (Mario->IsJumping())
 		{
-			//DoScreenShake();
+			std::cout << "HIT" << std::endl;
+			DoScreenShake();
 			m_pow_block->TakeHit();
 			Mario->CancelJump();
 		}
 	}
+}
+
+void GameScreenLevel1::DoScreenShake()
+{
+	m_screenshake = true;
+	m_shake_time = SHAKE_DURATION;
+	m_wobble = 0.0f;
+	std::cout << "YEEE" << std::endl;
 }

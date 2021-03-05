@@ -20,10 +20,15 @@ private:
 	CharacterLuigi* Luigi;
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
+	bool m_screenshake;
+	float m_shake_time;
+	float m_wobble;
+	float m_background_yPos;
 
 	//methods
 	bool SetUpLevel();
 	void SetLevelMap();
+	void DoScreenShake();
 
 public:
 	GameScreenLevel1(SDL_Renderer* renderer);
