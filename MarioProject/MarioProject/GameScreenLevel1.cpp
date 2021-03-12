@@ -7,6 +7,8 @@
 #include "Collisions.h"
 #include "PowBlock.h"
 
+
+
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
 {
 	m_level_map = nullptr;
@@ -37,7 +39,7 @@ bool GameScreenLevel1::SetUpLevel()
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
 
 	//Load enemies
-	CreateKoopa(Vector2D(150,32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(120,200), FACING_RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325,32), FACING_LEFT, KOOPA_SPEED);
 
 
@@ -60,7 +62,8 @@ void GameScreenLevel1::Render()
 	//draw enemies
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
-		m_enemies[i]->Render();
+			m_enemies[i]->Render();
+		
 	}
 
 	//draw the background
@@ -76,6 +79,8 @@ void GameScreenLevel1::Render()
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
+
+
 	//shake screen
 	if (m_screenshake)
 	{
@@ -123,7 +128,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 void GameScreenLevel1::SetLevelMap()
 {
 	int map[MAP_HEIGHT][MAP_WIDTH] = {
-					  { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 					  { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
 					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
@@ -218,6 +223,10 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 						}
 						else
 						{
+							//Change Screens
+							isSwitching = true;
+							//Add var for which screen to switch to?
+							//Game Over Screen
 							//kill mario
 						}
 					}
@@ -227,9 +236,14 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 				if (!m_enemies[i]->GetAlive())
 				{
 					enemyIndexToDelete = i;
+					//delete m_enemies[i];
 				}
 			}
 			//remove dead enemies -1 each update
+			if (enemyIndexToDelete != -1)
+			{
+				m_enemies.erase(m_enemies.begin() + enemyIndexToDelete);
+			}
 		}
 	}
 }

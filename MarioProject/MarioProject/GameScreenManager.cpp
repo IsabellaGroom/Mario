@@ -24,6 +24,10 @@ void GameScreenManager::Render()
 
 void GameScreenManager::Update(float deltaTime, SDL_Event e)
 {
+	if (m_current_screen->isSwitching)
+	{
+		ChangeScreen(SCREEN_MENU);
+	}
 	m_current_screen->Update(deltaTime, e);
 }
 
