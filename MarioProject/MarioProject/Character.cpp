@@ -5,10 +5,7 @@
 
 // Problems with Jump
 /*
-* - Jumps way too high
-* - Jump force does not decrease
-* - m_jumping is always false
-*
+* - Jumps way too quickly
 */
 
 

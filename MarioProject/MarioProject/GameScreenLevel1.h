@@ -5,9 +5,10 @@
 #include "Commons.h"
 #include "Character.h"
 #include "LevelMap.h"
+#include "CharacterKoopa.h"
 #include <vector>
 
-class CharacterKoopa
+
 class CharacterMario;
 class CharacterLuigi;
 class Texture2D;
@@ -20,6 +21,7 @@ private:
 	Texture2D* m_background_texture;
 	CharacterMario* Mario;
 	CharacterLuigi* Luigi;
+	CharacterKoopa* koopa;
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
 	bool m_screenshake;

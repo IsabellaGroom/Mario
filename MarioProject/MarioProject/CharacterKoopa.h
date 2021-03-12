@@ -7,6 +7,7 @@
 class CharacterKoopa : public Character
 {
 private:
+	float m_movement_speed;
 	float m_single_sprite_w;
 	float m_single_sprite_h;
 	bool m_injured;

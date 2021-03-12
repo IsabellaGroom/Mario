@@ -35,6 +35,11 @@ bool GameScreenLevel1::SetUpLevel()
 	//load POW
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
 
+	//Load enemies
+	CreateKoopa(Vector2D(150,32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(325,32), FACING_LEFT, KOOPA_SPEED);
+
+
 	//screenshake variables
 	m_screenshake = false;
 	m_background_yPos = 0.0f;
@@ -161,7 +166,12 @@ void GameScreenLevel1::DoScreenShake()
 	m_screenshake = true;
 	m_shake_time = SHAKE_DURATION;
 	m_wobble = 0.0f;
-	std::cout << "YEEE" << std::endl;
+	//std::cout << "YEEE" << std::endl;
+
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->TakeDamage();
+	}
 }
 
 void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
@@ -171,20 +181,23 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 		int enemyIndexToDelete = -1;
 		for (unsigned int i = 0; i < m_enemies.size(); i++)
 		{
+			
 			//check if enemy is on the bottom row of tiles
-			if (m_enemies[i]->GetPosition().y > 300.0f)
+			if (m_enemies[i]->GetPosition().y < 300.0f)
 			{
+				
 				//is the enemy off screen?
 				if (m_enemies[i]->GetPosition().x < (float)
-					(-m_enemies[i]->GetCollisionBox.width * 0.5f)
+					(-m_enemies[i]->GetCollisionBox().width * 0.5f)
 					|| m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)
 					(m_enemies[i]->GetCollisionBox().width * 0.55f))
 				{
+					cout << "DEAD\n";
 					m_enemies[i]->SetAlive(false);
 				}
 				//now do the update
 				m_enemies[i]->Update(deltaTime, e);
-
+				
 				//check to see if enemy collides with player
 				if ((m_enemies[i]->GetPosition().y > 300.0f ||
 					m_enemies[i]->GetPosition().y <= 64.0f) &&
@@ -222,5 +235,6 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 
 void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
 {
-
+	koopa = new CharacterKoopa(m_renderer, "Images/Koopa.png", m_level_map, position, direction, speed);
+	m_enemies.push_back(koopa);
 }
