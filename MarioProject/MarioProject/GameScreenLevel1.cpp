@@ -28,6 +28,7 @@ GameScreenLevel1::~GameScreenLevel1()
 
 bool GameScreenLevel1::SetUpLevel()
 {
+
 	//set up player character
 	Mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
 	Luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(64, 330), m_level_map);
