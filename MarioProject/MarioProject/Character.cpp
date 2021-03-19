@@ -54,17 +54,15 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
-	//cout << "Y: " << m_position.y << " X: " << m_position.x << endl;
 
 	//deal with jumping first
 	if (m_jumping)
 	{
-		//adjust position  dt
+		//adjust position  
 		m_position.y -= m_jump_force;
 
-		//reduce jump force  dt
+		//reduce jump force  
 		m_jump_force -= JUMP_FORCE_DECREMENT;
-		//m_position.y -= m_jump_force * deltaTime;
 
 		//is jump force 0?
 		if (m_jump_force <= 0.0f)
@@ -72,7 +70,6 @@ void Character::Update(float deltaTime, SDL_Event e)
 			//stop jumping
 			m_jumping = false;
 		}
-		//cout << "YES" << endl;
 		//fall
 		AddGravity(deltaTime);
 	}
@@ -91,19 +88,17 @@ void Character::Update(float deltaTime, SDL_Event e)
 	int foot_position = (int)(m_position.y + m_texture->GetHeight())
 		/ TILE_HEIGHT;
 
-	cout << "Central: " << m_current_level_map->GetTileAt(centralX_position, foot_position) << endl;
+	//cout << "Central: " << m_current_level_map->GetTileAt(centralX_position, foot_position) << endl;
 	//deal with gravity
 	//if in air, fall
 	if (m_current_level_map->GetTileAt(foot_position, centralX_position) == 0)
 	{
-		
 		//always ping this
 		//cout << "LEVEL MAP" << endl;
 		AddGravity(deltaTime);
 	}
 	else
 	{
-		
 		//collided with ground so we can jump again
 		m_can_jump = true;
 	}
@@ -111,7 +106,6 @@ void Character::Update(float deltaTime, SDL_Event e)
 
 
 	//cout << m_position.y << endl;
-  //cout << "Time: " << deltaTime << endl;
 }
 
 
@@ -148,19 +142,12 @@ void Character::AddGravity(float deltaTime)
 	if ((m_position.y + 64) <= FLOOR)
 	{
 		m_position.y += GRAVITY;
-		//dt
 		//strength of gravity
 	}
 	else
 	{
 		m_can_jump = true;
 	}
-	/*
-	if ((m_position.y + 64) >= 400)
-	{
-		m_position.y -= GRAVITY * deltaTime;
-	}
-	*/
 }
 
 void Character::Jump(float deltaTime)

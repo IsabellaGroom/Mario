@@ -25,6 +25,7 @@ CharacterKoopa::~CharacterKoopa()
 
 void CharacterKoopa::TakeDamage()
 {
+	health--;
 	m_injured = true;
 	m_injured_time = INJURED_TIME;
 
@@ -75,7 +76,29 @@ void CharacterKoopa::Render()
 
 void CharacterKoopa::Update(float deltatime, SDL_Event e)
 {
-	Character::Update(deltatime, e);
+	
+ 	Character::Update(deltatime, e);
+	int centralX_position = (int)(m_position.x + (m_texture->GetWidth() * 0.5)) / TILE_WIDTH;
+	int foot_position = (int)(m_position.y + m_texture->GetHeight())
+		/ TILE_HEIGHT;
+
+	cout << "Central: " << m_current_level_map->GetTileAt(centralX_position, foot_position) << endl;
+
+	if (m_current_level_map->GetTileAt(centralX_position, foot_position) != 0 && m_current_level_map->GetTileAt(centralX_position, foot_position) != 1)
+	{
+		cout << "AAAAAAAAAAAAA" << endl;
+	}
+
+	//cout << "y: " << m_position.y << endl;
+
+	if (m_position.x >= SCREEN_WIDTH - 50)
+	{
+		m_facing_direction == FACING_LEFT;
+	}
+	else if (m_position.x <= 10)
+	{
+		m_facing_direction = FACING_RIGHT;
+	}
 
 	if (!m_injured)
 	{
@@ -87,7 +110,7 @@ void CharacterKoopa::Update(float deltatime, SDL_Event e)
 		}
 		else if (m_facing_direction == FACING_RIGHT)
 		{
-			m_moving_right = false;
+			m_moving_right = true;
 			m_moving_left = false;
 		}
 

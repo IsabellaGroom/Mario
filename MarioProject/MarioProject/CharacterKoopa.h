@@ -16,6 +16,7 @@ private:
 	void FlipRightWayUp();
 
 public:
+	int health = 3;
 	CharacterKoopa(SDL_Renderer* renderer, string imagePath, LevelMap* map,
 		Vector2D start_position, FACING start_facing, float movement_speed);
 	~CharacterKoopa();

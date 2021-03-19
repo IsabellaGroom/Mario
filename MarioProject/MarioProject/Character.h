@@ -15,13 +15,14 @@ class Character
 {
 private:
 	
-	LevelMap* m_current_level_map;
+	
 
 protected:
 	SDL_Renderer* m_renderer;
 	Vector2D m_position;
 	Texture2D* m_texture;
 	FACING m_facing_direction;
+	LevelMap* m_current_level_map;
 
 	bool m_alive;
 	bool m_moving_left;

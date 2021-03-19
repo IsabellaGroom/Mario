@@ -79,21 +79,15 @@ void GameScreenLevel1::Render()
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
-
-
 	//shake screen
 	if (m_screenshake)
 	{
-		m_wobble = 10;
+
 		m_shake_time -= deltaTime;
 		m_wobble++;
 		m_background_yPos = sin(m_wobble);
-		//cout << m_background_yPos << endl;
 		m_background_yPos *= 3.0f;
-
-		//cout << m_wobble << endl;
-		Render();
-
+		
 		//ends after duration
 		if (m_shake_time <= 0.0f)
 		{
@@ -159,7 +153,7 @@ void GameScreenLevel1::UpdatePOWBlock()
 	{
 		if (Mario->IsJumping())
 		{
-			std::cout << "HIT" << std::endl;
+			//std::cout << "HIT" << std::endl;
 			DoScreenShake();
 			m_pow_block->TakeHit();
 			Mario->CancelJump();
@@ -193,6 +187,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			{
 				
 				//is the enemy off screen?
+				/*
 				if (m_enemies[i]->GetPosition().x < (float)
 					(-m_enemies[i]->GetCollisionBox().width * 0.5f)
 					|| m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)
@@ -201,6 +196,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					cout << "DEAD\n";
 					m_enemies[i]->SetAlive(false);
 				}
+				*/
 				//now do the update
 				m_enemies[i]->Update(deltaTime, e);
 				
@@ -223,18 +219,21 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 						}
 						else
 						{
-							//Change Screens
-							isSwitching = true;
-							//Add var for which screen to switch to?
-							//Game Over Screen
-							//kill mario
+							//Mario dead
+							isSwitching = true;					
 						}
+					}
+
+					if (m_enemies[i]->health <= 0)
+					{
+						m_enemies[i]->SetAlive(false);
 					}
 				}
 
 				//if the enemy is no longer alive then delete
 				if (!m_enemies[i]->GetAlive())
 				{
+					
 					enemyIndexToDelete = i;
 					//delete m_enemies[i];
 				}
@@ -242,6 +241,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			//remove dead enemies -1 each update
 			if (enemyIndexToDelete != -1)
 			{
+				
 				m_enemies.erase(m_enemies.begin() + enemyIndexToDelete);
 			}
 		}
