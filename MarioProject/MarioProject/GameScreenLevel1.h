@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "LevelMap.h"
 #include "CharacterKoopa.h"
+#include "CharacterCoin.h"
 #include <vector>
 
 
@@ -23,6 +24,7 @@ private:
 	CharacterMario* Mario;
 	CharacterLuigi* Luigi;
 	CharacterKoopa* koopa;
+	CharacterCoin* coin;
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
 	bool m_screenshake;
@@ -30,7 +32,7 @@ private:
 	float m_wobble;
 	float m_background_yPos;
 	vector<CharacterKoopa*> m_enemies;
-
+	vector<CharacterCoin*> m_coins;
 
 	//methods
 	bool SetUpLevel();
@@ -38,7 +40,7 @@ private:
 	void DoScreenShake();
 	void UpdateEnemies(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
-
+	void CreateCoin(Vector2D position);
 public:
 	GameScreenLevel1(SDL_Renderer* renderer);
 	~GameScreenLevel1();

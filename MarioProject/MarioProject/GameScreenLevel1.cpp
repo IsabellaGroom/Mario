@@ -26,6 +26,7 @@ GameScreenLevel1::~GameScreenLevel1()
 	delete m_pow_block;
 	m_pow_block = nullptr;
 	m_enemies.clear();
+	m_coins.clear();
 }
 
 bool GameScreenLevel1::SetUpLevel()
@@ -39,9 +40,11 @@ bool GameScreenLevel1::SetUpLevel()
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
 
 	//Load enemies
-	CreateKoopa(Vector2D(120,200), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(120,10), FACING_RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325,32), FACING_LEFT, KOOPA_SPEED);
 
+	//Load Coins
+	CreateCoin(Vector2D(150, 350));
 
 	//screenshake variables
 	m_screenshake = false;
@@ -64,6 +67,13 @@ void GameScreenLevel1::Render()
 	{
 			m_enemies[i]->Render();
 		
+	}
+
+	//draw coins
+	for (int i = 0; i < m_coins.size(); i++)
+	{
+		
+		m_coins[i]->Render();
 	}
 
 	//draw the background
@@ -103,6 +113,15 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	//Update functions
 	UpdatePOWBlock();
 	UpdateEnemies(deltaTime, e);
+
+	for (int i = 0; i < m_coins.size(); i++)
+	{
+		m_coins[i]->Update(deltaTime, e);
+		if (Collisions::Instance()->Circle(Mario, coin))
+		{
+			delete m_coins[i];
+		}
+	}
 
 	if (Collisions::Instance()->Circle(Mario, Luigi))
 	{
@@ -176,28 +195,13 @@ void GameScreenLevel1::DoScreenShake()
 
 void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 {
+
 	if (!m_enemies.empty())
 	{
+	
 		int enemyIndexToDelete = -1;
 		for (unsigned int i = 0; i < m_enemies.size(); i++)
 		{
-			
-			//check if enemy is on the bottom row of tiles
-			if (m_enemies[i]->GetPosition().y < 300.0f)
-			{
-				
-				//is the enemy off screen?
-				/*
-				if (m_enemies[i]->GetPosition().x < (float)
-					(-m_enemies[i]->GetCollisionBox().width * 0.5f)
-					|| m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)
-					(m_enemies[i]->GetCollisionBox().width * 0.55f))
-				{
-					cout << "DEAD\n";
-					m_enemies[i]->SetAlive(false);
-				}
-				*/
-				//now do the update
 				m_enemies[i]->Update(deltaTime, e);
 				
 				//check to see if enemy collides with player
@@ -215,6 +219,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					{
 						if (m_enemies[i]->GetInjured())
 						{
+							
 							m_enemies[i]->SetAlive(false);
 						}
 						else
@@ -237,14 +242,17 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					enemyIndexToDelete = i;
 					//delete m_enemies[i];
 				}
-			}
+			
 			//remove dead enemies -1 each update
 			if (enemyIndexToDelete != -1)
 			{
-				
 				m_enemies.erase(m_enemies.begin() + enemyIndexToDelete);
 			}
 		}
+	}
+	else
+	{
+		cout << "No enemies" << endl;
 	}
 }
 
@@ -252,4 +260,10 @@ void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float sp
 {
 	koopa = new CharacterKoopa(m_renderer, "Images/Koopa.png", m_level_map, position, direction, speed);
 	m_enemies.push_back(koopa);
+}
+
+void GameScreenLevel1::CreateCoin(Vector2D position)
+{
+	coin = new CharacterCoin(m_renderer, "Images/Coin.png",position, m_level_map);
+	m_coins.push_back(coin);
 }

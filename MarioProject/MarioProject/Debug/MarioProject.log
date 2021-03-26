@@ -1,53 +1,8 @@
-﻿  Character.cpp
+﻿  GameScreenLevel1.cpp
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  CharacterKoopa.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(15,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(16,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(48,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(54,10): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(58,42): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(58,42): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(58,61): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(58,61): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(62,2): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(62,2): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(62,21): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(62,21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\CharacterKoopa.cpp(96,22): warning C4553: '==': result of expression not used; did you intend '='?
-  CharacterLuigi.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  CharacterMario.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Collisions.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  GameScreenLevel1.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(63,20): warning C4018: '<': signed/unsigned mismatch
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(171,20): warning C4018: '<': signed/unsigned mismatch
-  GameScreenManager.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  LevelMap.cpp
-  PowBlock.cpp
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(19,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(20,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(22,46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(37,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(39,43): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(39,43): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(39,62): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(39,62): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(46,4): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(46,4): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(46,23): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-E:\Uni\Mario\MarioProject\MarioProject\PowBlock.cpp(46,23): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  Source.cpp
-  Generating Code...
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(66,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(73,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(116,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(189,20): warning C4018: '<': signed/unsigned mismatch
   MarioProject.vcxproj -> E:\Uni\Mario\MarioProject\Debug\MarioProject.exe

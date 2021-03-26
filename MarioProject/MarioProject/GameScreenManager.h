@@ -11,13 +11,14 @@ class GameScreenManager
 private:
 	SDL_Renderer* m_renderer;
 	GameScreen* m_current_screen;
+	SCREENS this_screen;
 public:
 	GameScreenManager(SDL_Renderer* renderer, SCREENS startScreen);
 	~GameScreenManager();
 
 	void Render();
 	void Update(float deltaTime, SDL_Event e);
-
+	SCREENS GetScreen() { return this_screen; }
 	void ChangeScreen(SCREENS new_screen);
 };
 

@@ -10,6 +10,7 @@ CharacterKoopa::CharacterKoopa(SDL_Renderer* renderer, string imagePath, LevelMa
 	m_movement_speed = movement_speed;
 	m_position = start_position;
 	m_injured = false;
+	m_map = map;
 	//m_moving_left = true;
 
 	m_single_sprite_w = m_texture->GetWidth() / 2;
@@ -75,27 +76,22 @@ void CharacterKoopa::Render()
 }
 
 void CharacterKoopa::Update(float deltatime, SDL_Event e)
-{
-	
+{	
  	Character::Update(deltatime, e);
 	int centralX_position = (int)(m_position.x + (m_texture->GetWidth() * 0.5)) / TILE_WIDTH;
-	int foot_position = (int)(m_position.y + m_texture->GetHeight())
-		/ TILE_HEIGHT;
+	int foot_position = (int)(m_position.y + m_texture->GetHeight()) / TILE_HEIGHT;
 
 	cout << "Central: " << m_current_level_map->GetTileAt(centralX_position, foot_position) << endl;
 
-	if (m_current_level_map->GetTileAt(centralX_position, foot_position) != 0 && m_current_level_map->GetTileAt(centralX_position, foot_position) != 1)
-	{
-		cout << "AAAAAAAAAAAAA" << endl;
-	}
-
-	//cout << "y: " << m_position.y << endl;
+	
 
 	if (m_position.x >= SCREEN_WIDTH - 50)
 	{
 		m_facing_direction == FACING_LEFT;
+		m_position.x = 100;
 	}
-	else if (m_position.x <= 10)
+
+	if (m_position.x <= 50)
 	{
 		m_facing_direction = FACING_RIGHT;
 	}

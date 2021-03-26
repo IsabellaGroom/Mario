@@ -1,5 +1,7 @@
 #include "GameScreenMenu.h"
 #include "Texture2D.h"
+#include "SDL.h"
+#include <sstream>
 #include <iostream>
 
 GameScreenMenu::GameScreenMenu(SDL_Renderer* renderer) : GameScreen(renderer)
@@ -16,7 +18,7 @@ bool GameScreenMenu::SetUpLevel()
 {
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
-	if (!m_background_texture->LoadFromFile("Images/GameOver.png"))
+	if (!m_background_texture->LoadFromFile("Images/Menu.jpg"))
 	{
 		std::cout << "Failed to load background texture " << std::endl;
 		return false;
@@ -26,8 +28,10 @@ bool GameScreenMenu::SetUpLevel()
 
 void GameScreenMenu::Render()
 {
+
 	//draw the background
 	m_background_texture->Render(Vector2D(), SDL_FLIP_NONE);
+
 }
 
 void GameScreenMenu::Update(float deltaTime, SDL_Event e)
