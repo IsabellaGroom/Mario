@@ -13,6 +13,8 @@ private:
 	
 public:
 
+	bool isDead = false;
+
 	CharacterCoin(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map);
 	~CharacterCoin();
 	virtual void Render();

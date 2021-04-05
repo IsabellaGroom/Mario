@@ -11,6 +11,7 @@
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
 {
+	score = 0;
 	m_level_map = nullptr;
 	SetLevelMap();
 	SetUpLevel();
@@ -45,6 +46,12 @@ bool GameScreenLevel1::SetUpLevel()
 
 	//Load Coins
 	CreateCoin(Vector2D(150, 350));
+	CreateCoin(Vector2D(200, 350));
+	CreateCoin(Vector2D(250, 250));
+	CreateCoin(Vector2D(300, 250));
+	CreateCoin(Vector2D(350, 250));
+	CreateCoin(Vector2D(100, 150));
+
 
 	//screenshake variables
 	m_screenshake = false;
@@ -62,6 +69,8 @@ bool GameScreenLevel1::SetUpLevel()
 
 void GameScreenLevel1::Render()
 {
+
+
 	//draw enemies
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
@@ -72,8 +81,10 @@ void GameScreenLevel1::Render()
 	//draw coins
 	for (int i = 0; i < m_coins.size(); i++)
 	{
-		
-		m_coins[i]->Render();
+		if (!m_coins[i]->isDead)
+		{
+			m_coins[i]->Render();
+		}
 	}
 
 	//draw the background
@@ -89,6 +100,7 @@ void GameScreenLevel1::Render()
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
+	cout << score << endl;
 	//shake screen
 	if (m_screenshake)
 	{
@@ -116,9 +128,15 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 
 	for (int i = 0; i < m_coins.size(); i++)
 	{
-		m_coins[i]->Update(deltaTime, e);
-		if (Collisions::Instance()->Circle(Mario, coin))
+		if (!m_coins[i]->isDead)
 		{
+			m_coins[i]->Update(deltaTime, e);
+		}
+
+		if (Collisions::Instance()->Circle(Mario, m_coins[i]))
+		{
+			score += 1;
+			m_coins[i]->isDead = true;
 			delete m_coins[i];
 		}
 	}

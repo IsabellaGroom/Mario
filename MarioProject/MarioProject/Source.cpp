@@ -28,6 +28,7 @@ int main(int argc, char* args[])
 {
 	if (InitSDL())
 	{
+
 		LoadMusic("Music/Mario.mp3");
 		if (Mix_PlayingMusic() == 0)
 		{
@@ -55,6 +56,7 @@ int main(int argc, char* args[])
 
 bool InitSDL()
 {
+
 	//SetupSDL
 	//Flags return 0 on success
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) > 0)
@@ -119,6 +121,7 @@ void CloseSDL()
 	//release window
 	SDL_DestroyWindow(g_window);
 	g_window = nullptr;
+
 
 	//quit SDL subsystems
 	IMG_Quit();
@@ -189,9 +192,11 @@ void Render()
 	SDL_RenderClear(g_renderer);
 
 	game_screen_manager->Render();
-	
+
+
 	//update the screen
 	SDL_RenderPresent(g_renderer);
+
 }
 
 void LoadMusic(string path)

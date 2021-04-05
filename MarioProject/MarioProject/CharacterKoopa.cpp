@@ -81,7 +81,7 @@ void CharacterKoopa::Update(float deltatime, SDL_Event e)
 	int centralX_position = (int)(m_position.x + (m_texture->GetWidth() * 0.5)) / TILE_WIDTH;
 	int foot_position = (int)(m_position.y + m_texture->GetHeight()) / TILE_HEIGHT;
 
-	cout << "Central: " << m_current_level_map->GetTileAt(centralX_position, foot_position) << endl;
+	//cout << "Central: " << m_current_level_map->GetTileAt(centralX_position, foot_position) << endl;
 
 	
 

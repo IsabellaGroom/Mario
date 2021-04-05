@@ -19,7 +19,7 @@ class GameScreenLevel1 : GameScreen
 {
 private:
 	//variables
-
+	int score;
 	Texture2D* m_background_texture;
 	CharacterMario* Mario;
 	CharacterLuigi* Luigi;
