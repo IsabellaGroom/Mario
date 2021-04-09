@@ -51,7 +51,16 @@ bool GameScreenLevel1::SetUpLevel()
 	CreateCoin(Vector2D(300, 250));
 	CreateCoin(Vector2D(350, 250));
 	CreateCoin(Vector2D(100, 150));
+	
+	//Load Music
+	m_background = new Music();
+	m_background->Load("Music/Mario.mp3");
 
+	//Load FX
+	m_coinFX = new SoundFX();
+	m_coinFX->Load("Music/Coin.ogg");
+	m_OverFX = new SoundFX();
+	m_OverFX->Load("Music/GameOver.wav");
 
 	//screenshake variables
 	m_screenshake = false;
@@ -100,6 +109,8 @@ void GameScreenLevel1::Render()
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
+	m_background->Play();
+
 	cout << score << endl;
 	//shake screen
 	if (m_screenshake)
@@ -135,6 +146,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 
 		if (Collisions::Instance()->Circle(Mario, m_coins[i]))
 		{
+			m_coinFX->Play();
 			score += 1;
 			m_coins[i]->isDead = true;
 			delete m_coins[i];
@@ -243,7 +255,9 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 						else
 						{
 							//Mario dead
-							isSwitching = true;					
+							m_background->Stop();
+							m_OverFX->Play();
+							isSwitching = true;						
 						}
 					}
 

@@ -35,6 +35,12 @@ void GameScreenManager::Update(float deltaTime, SDL_Event e)
 	{
 	  ChangeScreen(SCREEN_GAMEOVER);
 	}
+
+	if (m_current_screen->restart)
+	{
+		m_current_screen->restart = false;
+		ChangeScreen(SCREEN_LEVEL1);
+	}
 	
 	m_current_screen->Update(deltaTime, e);
 }

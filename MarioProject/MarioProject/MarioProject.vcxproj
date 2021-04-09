@@ -154,7 +154,9 @@
     <ClCompile Include="GameScreenManager.cpp" />
     <ClCompile Include="GameScreenMenu.cpp" />
     <ClCompile Include="LevelMap.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="PowBlock.cpp" />
+    <ClCompile Include="SoundFX.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
@@ -180,7 +182,9 @@
     <ClInclude Include="GameScreenManager.h" />
     <ClInclude Include="GameScreenMenu.h" />
     <ClInclude Include="LevelMap.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="PowBlock.h" />
+    <ClInclude Include="SoundFX.h" />
     <ClInclude Include="Texture2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

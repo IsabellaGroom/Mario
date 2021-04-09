@@ -8,7 +8,8 @@
 #include "CharacterKoopa.h"
 #include "CharacterCoin.h"
 #include <vector>
-
+#include "SoundFX.h"
+#include "Music.h"
 
 class CharacterMario;
 class CharacterLuigi;
@@ -21,18 +22,27 @@ private:
 	//variables
 	int score;
 	Texture2D* m_background_texture;
-	CharacterMario* Mario;
-	CharacterLuigi* Luigi;
-	CharacterKoopa* koopa;
-	CharacterCoin* coin;
 	LevelMap* m_level_map;
+
+	//Pow
 	PowBlock* m_pow_block;
 	bool m_screenshake;
 	float m_shake_time;
 	float m_wobble;
 	float m_background_yPos;
+
+	//Characters
+	CharacterMario* Mario;
+	CharacterLuigi* Luigi;
+	CharacterKoopa* koopa;
+	CharacterCoin* coin;
 	vector<CharacterKoopa*> m_enemies;
 	vector<CharacterCoin*> m_coins;
+	
+	//Sound
+	SoundFX* m_coinFX;
+	SoundFX* m_OverFX;
+	Music* m_background;
 
 	//methods
 	bool SetUpLevel();
@@ -41,6 +51,7 @@ private:
 	void UpdateEnemies(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
 	void CreateCoin(Vector2D position);
+
 public:
 	GameScreenLevel1(SDL_Renderer* renderer);
 	~GameScreenLevel1();
