@@ -15,6 +15,7 @@ public:
 	virtual void Update(float deltaTime, SDL_Event e);
 	bool isSwitching = false;
 	bool start = false;
+	bool restart = false;
 };
 
 #endif

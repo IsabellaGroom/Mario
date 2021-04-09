@@ -1,8 +1,16 @@
-﻿  GameScreenLevel1.cpp
+﻿  GameScreen.cpp
+  GameScreenLevel1.cpp
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(66,20): warning C4018: '<': signed/unsigned mismatch
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(73,20): warning C4018: '<': signed/unsigned mismatch
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(116,20): warning C4018: '<': signed/unsigned mismatch
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(189,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(84,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(91,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(140,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(220,20): warning C4018: '<': signed/unsigned mismatch
+  GameScreenLose.cpp
+  GameScreenManager.cpp
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameScreenMenu.cpp
+  Source.cpp
+  Generating Code...
   MarioProject.vcxproj -> E:\Uni\Mario\MarioProject\Debug\MarioProject.exe

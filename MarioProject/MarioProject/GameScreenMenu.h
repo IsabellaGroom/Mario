@@ -3,6 +3,7 @@
 #define _GAMESCREEN_MENU_H
 #include "GameScreen.h"
 #include "Commons.h"
+#include "Music.h"
 
 class Texture2D;
 
@@ -10,6 +11,7 @@ class GameScreenMenu : GameScreen
 {
 private:
 	Texture2D* m_background_texture;
+	Music* m_background_music;
 	bool SetUpLevel();
 public:
 	GameScreenMenu(SDL_Renderer* renderer);

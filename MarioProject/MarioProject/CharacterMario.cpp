@@ -4,6 +4,8 @@ CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath,
 	Vector2D start_position, LevelMap* map) :
 	Character(renderer, imagePath, start_position, map)
 {
+	m_jumpFX = new SoundFX;
+	m_jumpFX->Load("Music/Jump.wav");
 
 }
 
@@ -31,6 +33,7 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 		case SDLK_w:
 			if (m_can_jump)
 			{
+				m_jumpFX->Play();
 				Jump(deltaTime);
 			}
 		}
