@@ -10,6 +10,8 @@
 #include <vector>
 #include "SoundFX.h"
 #include "Music.h"
+#include <SDL_ttf.h>
+
 
 class CharacterMario;
 class CharacterLuigi;
@@ -43,6 +45,11 @@ private:
 	SoundFX* m_coinFX;
 	SoundFX* m_OverFX;
 	Music* m_background;
+
+	//Text
+	TTF_Font* t_font = NULL;
+	SDL_Color t_colour = { 255,255,255 };
+	SDL_Surface* t_message = NULL;
 
 	//methods
 	bool SetUpLevel();

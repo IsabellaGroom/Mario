@@ -8,7 +8,7 @@
 #include "Collisions.h"
 #include "PowBlock.h"
 #include "Commons.h"
-
+#include <SDL_ttf.h>
 
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
@@ -30,6 +30,10 @@ GameScreenLevel1::~GameScreenLevel1()
 	m_pow_block = nullptr;
 	m_enemies.clear();
 	m_coins.clear();
+
+	SDL_FreeSurface(t_message);
+	TTF_CloseFont(t_font);
+
 }
 
 bool GameScreenLevel1::SetUpLevel()
@@ -71,6 +75,10 @@ bool GameScreenLevel1::SetUpLevel()
 	//screenshake variables
 	m_screenshake = false;
 	m_background_yPos = 0.0f;
+	
+	//Text variables
+	t_font = TTF_OpenFont("SuperMario.ttf", 28);
+
 
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
@@ -87,6 +95,9 @@ void GameScreenLevel1::Render()
 
 	//draw the background
 	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
+
+	t_message = TTF_RenderText_Solid(t_font, "Score :", t_colour);
+
 
 	//draw coins
 	for (int i = 0; i < m_coins.size(); i++)

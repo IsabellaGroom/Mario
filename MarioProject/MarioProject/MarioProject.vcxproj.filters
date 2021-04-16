@@ -76,6 +76,9 @@
     <Library Include="SDL2\SDL\SDL2_mixer.lib" />
     <Library Include="SDL2\SDL\SDL2main.lib" />
     <Library Include="SDL2\SDL\SDL2test.lib" />
+    <Library Include="SDL2\SDL\SDL2_ttf.lib">
+      <Filter>Source Files</Filter>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="GameScreenLevel2.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL2\SDL\include\SDL_ttf.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

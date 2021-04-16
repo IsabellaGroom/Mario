@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(PROJECTDIR)\SDL2\SDL\mixer_include;$(PROJECTDIR)\SDL2\SDL\image_include;$(PROJECTDIR)\SDL2\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PROJECTDIR)\SDL2\SDL\mixer_include;$(PROJECTDIR)\SDL2\SDL\ttf_include;$(PROJECTDIR)\SDL2\SDL\image_include;$(PROJECTDIR)\SDL2\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +167,7 @@
     <Library Include="SDL2\SDL\SDL2test.lib" />
     <Library Include="SDL2\SDL\SDL2_image.lib" />
     <Library Include="SDL2\SDL\SDL2_mixer.lib" />
+    <Library Include="SDL2\SDL\SDL2_ttf.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="LevelMap.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="PowBlock.h" />
+    <ClInclude Include="SDL2\SDL\include\SDL_ttf.h" />
     <ClInclude Include="SoundFX.h" />
     <ClInclude Include="Texture2D.h" />
   </ItemGroup>
