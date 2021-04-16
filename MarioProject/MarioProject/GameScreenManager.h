@@ -20,6 +20,8 @@ public:
 	void Update(float deltaTime, SDL_Event e);
 	SCREENS GetScreen() { return this_screen; }
 	void ChangeScreen(SCREENS new_screen);
+
+	int score;
 };
 
 #endif

@@ -20,9 +20,9 @@ class GameScreenLevel1 : GameScreen
 {
 private:
 	//variables
-	int score;
 	Texture2D* m_background_texture;
 	LevelMap* m_level_map;
+	int score;
 
 	//Pow
 	PowBlock* m_pow_block;
@@ -59,6 +59,8 @@ public:
 	void Render() override;
 	void Update(float deltaTimer, SDL_Event e)override;
 	void UpdatePOWBlock();
+	void RecordScore(int score);
+
 
 };
 

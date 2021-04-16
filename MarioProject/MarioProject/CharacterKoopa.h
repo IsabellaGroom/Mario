@@ -24,6 +24,7 @@ public:
 	~CharacterKoopa();
 	void TakeDamage();
 	void Jump();
+	void SwitchFacing(bool left);
 	bool GetInjured() { return m_injured; }
 	virtual void Render();
 	virtual void Update(float deltatime, SDL_Event e);

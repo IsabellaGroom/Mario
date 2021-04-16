@@ -121,14 +121,14 @@ Vector2D Character::GetPosition()
 
 void Character::MoveLeft(float deltaTime)
 {
-	m_facing_direction = FACING_LEFT;
+	//m_facing_direction = FACING_LEFT;
 	m_position.x -= MOVESPEED;
 
 }
-
+ 
 void Character::MoveRight(float deltaTime)
 {
-	m_facing_direction = FACING_RIGHT;
+//	m_facing_direction = FACING_RIGHT;
 	m_position.x += MOVESPEED;
 	//*deltaTime?
 

@@ -78,23 +78,7 @@ void CharacterKoopa::Render()
 void CharacterKoopa::Update(float deltatime, SDL_Event e)
 {	
  	Character::Update(deltatime, e);
-	int centralX_position = (int)(m_position.x + (m_texture->GetWidth() * 0.5)) / TILE_WIDTH;
-	int foot_position = (int)(m_position.y + m_texture->GetHeight()) / TILE_HEIGHT;
 
-	//cout << "Central: " << m_current_level_map->GetTileAt(centralX_position, foot_position) << endl;
-
-	
-
-	if (m_position.x >= SCREEN_WIDTH - 50)
-	{
-		m_facing_direction == FACING_LEFT;
-		m_position.x = 100;
-	}
-
-	if (m_position.x <= 50)
-	{
-		m_facing_direction = FACING_RIGHT;
-	}
 
 	if (!m_injured)
 	{
@@ -142,4 +126,16 @@ void CharacterKoopa::FlipRightWayUp()
 
 	m_injured = false;
 	Jump();
+}
+
+void CharacterKoopa::SwitchFacing(bool left)
+{
+	if (left)
+	{
+		m_facing_direction = FACING_LEFT;
+	}
+	else
+	{
+		m_facing_direction = FACING_RIGHT;
+	}
 }

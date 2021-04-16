@@ -6,7 +6,9 @@ CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath,
 {
 	m_jumpFX = new SoundFX;
 	m_jumpFX->Load("Music/Jump.wav");
-
+	m_jump = false;
+	m_single_sprite_w = m_texture->GetWidth() / 2;
+	m_single_sprite_h = m_texture->GetHeight();
 }
 
 CharacterMario::~CharacterMario()
@@ -14,9 +16,51 @@ CharacterMario::~CharacterMario()
 
 }
 
+void CharacterMario::Render()
+{
+	//variable to hold left pos of sprite
+	int left = 0.0f;
+
+	//if injured, move left pos to be left pos of
+	//2nd image of sprite sheet
+
+	if (m_jump)
+		left = m_single_sprite_w;
+
+	//get the portion of the sprtie sheet you want to draw
+	//{xPos, yPos, width, height}
+	SDL_Rect portion_of_sprite = { left, 0, m_single_sprite_w, m_single_sprite_h };
+
+	//determine where you want it drawn
+	SDL_Rect destRect = { (int)(m_position.x),(int)(m_position.y),
+	m_single_sprite_w, m_single_sprite_h };
+
+
+	
+//then draw it facing the correct diretion
+	if (m_facing_direction == FACING_RIGHT)
+	{
+		m_texture->Render(portion_of_sprite, destRect, SDL_FLIP_NONE);
+	}
+	else
+	{
+		m_texture->Render(portion_of_sprite, destRect, SDL_FLIP_HORIZONTAL);
+	}
+	
+
+}
 
 void CharacterMario::Update(float deltaTime, SDL_Event e)
 {
+	Character::Update(deltaTime, e);
+	if (m_moving_left)
+	{
+		m_facing_direction = FACING_LEFT;
+	}
+	else
+	{
+		m_facing_direction = FACING_RIGHT;
+	}
 
 	//Poll for events
 	switch (e.type)
@@ -34,6 +78,7 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 			if (m_can_jump)
 			{
 				m_jumpFX->Play();
+				m_jump = true;
 				Jump(deltaTime);
 			}
 		}
@@ -50,7 +95,24 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 		}
 		break;
 	}
+
+	if (m_jump)
+	{
+		m_frame_delay += deltaTime;
+		if (m_frame_delay >= 0.0f)
+		{
+	
+			if (m_frame_delay >= 500.0f)
+			{
+				m_jump = false;
+				m_frame_delay = ANIMATION_DELAY;
+			}
+			//reset frame delay count
+			
+		}
+	}
+
 	//cout << m_can_jump << endl;
 	//cout << "Jump: " << m_jumping << endl;
-	Character::Update(deltaTime, e);
+
 }

@@ -24,10 +24,12 @@ bool GameScreenMenu::SetUpLevel()
 		return false;
 	}
 
+	/*
 	//load music
 	m_background_music = new Music;
 	m_background_music->Load("Music/Mario.mp3");
 	m_background_music->Play();
+	*/
 	return true;
 }
 

@@ -1,17 +1,19 @@
 #include "GameScreenLevel1.h"
 #include "Texture2D.h"
 #include <iostream>
+#include <fstream>
 #include "Character.h"
 #include "CharacterMario.h"
 #include "CharacterLuigi.h"
 #include "Collisions.h"
 #include "PowBlock.h"
+#include "Commons.h"
 
 
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
 {
-	score = 0;
+	
 	m_level_map = nullptr;
 	SetLevelMap();
 	SetUpLevel();
@@ -35,7 +37,7 @@ bool GameScreenLevel1::SetUpLevel()
 
 	//set up player character
 	Mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
-	Luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(64, 330), m_level_map);
+	Luigi = new CharacterLuigi(m_renderer, "Images/luigi.png", Vector2D(64, 330), m_level_map);
 
 	//load POW
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
@@ -45,12 +47,16 @@ bool GameScreenLevel1::SetUpLevel()
 	CreateKoopa(Vector2D(325,32), FACING_LEFT, KOOPA_SPEED);
 
 	//Load Coins
-	CreateCoin(Vector2D(150, 350));
-	CreateCoin(Vector2D(200, 350));
-	CreateCoin(Vector2D(250, 250));
-	CreateCoin(Vector2D(300, 250));
-	CreateCoin(Vector2D(350, 250));
-	CreateCoin(Vector2D(100, 150));
+	CreateCoin(Vector2D(320, 350));
+	CreateCoin(Vector2D(360, 350));
+	CreateCoin(Vector2D(400, 350));
+
+	CreateCoin(Vector2D(250, 120));
+	CreateCoin(Vector2D(300, 120));
+	CreateCoin(Vector2D(200, 120));
+
+	CreateCoin(Vector2D(100, 20));
+	CreateCoin(Vector2D(400, 20));
 	
 	//Load Music
 	m_background = new Music();
@@ -79,13 +85,8 @@ bool GameScreenLevel1::SetUpLevel()
 void GameScreenLevel1::Render()
 {
 
-
-	//draw enemies
-	for (int i = 0; i < m_enemies.size(); i++)
-	{
-			m_enemies[i]->Render();
-		
-	}
+	//draw the background
+	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
 
 	//draw coins
 	for (int i = 0; i < m_coins.size(); i++)
@@ -96,15 +97,22 @@ void GameScreenLevel1::Render()
 		}
 	}
 
-	//draw the background
-	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
+	//draws POW
+	m_pow_block->Render();
+
+
+	//draw enemies
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+			m_enemies[i]->Render();
+		
+	}
 
 	//draws characters
 	Mario->Render();
 	Luigi->Render();
 
-	//draws POW
-	m_pow_block->Render();
+
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
@@ -153,19 +161,8 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 		}
 	}
 
-	if (Collisions::Instance()->Circle(Mario, Luigi))
-	{
-		cout << "Circle hit!" << endl;
-	}
-
-	if (Collisions::Instance()->Box(Mario->GetCollisionBox(), Luigi->GetCollisionBox()))
-	{
-		cout << "Box hit!" << endl;
-	}
-
-
 	//cout << m_level_map->GetTileAt(Mario->GetPosition().x, Mario->GetPosition().y) << endl;
-	//cout << Mario->GetPosition().y << endl;
+	cout << Mario->GetPosition().x << endl;
 }
 
 void GameScreenLevel1::SetLevelMap()
@@ -215,7 +212,6 @@ void GameScreenLevel1::DoScreenShake()
 	m_screenshake = true;
 	m_shake_time = SHAKE_DURATION;
 	m_wobble = 0.0f;
-	//std::cout << "YEEE" << std::endl;
 
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
@@ -225,6 +221,9 @@ void GameScreenLevel1::DoScreenShake()
 
 void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 {
+	float posY;
+	float posX;
+	Vector2D newPos;
 
 	if (!m_enemies.empty())
 	{
@@ -232,6 +231,24 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 		int enemyIndexToDelete = -1;
 		for (unsigned int i = 0; i < m_enemies.size(); i++)
 		{
+			posX = m_enemies[i]->GetPosition().x;
+			posY = m_enemies[i]->GetPosition().y;
+
+			if (posX >= SCREEN_WIDTH - 50)
+			{
+				newPos.x = 50.0f;
+				newPos.y = posY;
+				m_enemies[i]->SetPosition(newPos);
+			}
+
+			if (posX <= 50)
+			{
+				newPos.x = 400;
+				newPos.y = posY;
+				m_enemies[i]->SetPosition(newPos);
+			}
+			
+
 				m_enemies[i]->Update(deltaTime, e);
 				
 				//check to see if enemy collides with player
@@ -257,7 +274,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 							//Mario dead
 							m_background->Stop();
 							m_OverFX->Play();
-							isSwitching = true;						
+							isDead = true;						
 						}
 					}
 
@@ -285,6 +302,11 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 	else
 	{
 		cout << "No enemies" << endl;
+		if (Mario->GetPosition().x <= 300)
+		{
+			RecordScore(score);
+			isSwitching = true;
+		}
 	}
 }
 
@@ -298,4 +320,14 @@ void GameScreenLevel1::CreateCoin(Vector2D position)
 {
 	coin = new CharacterCoin(m_renderer, "Images/Coin.png",position, m_level_map);
 	m_coins.push_back(coin);
+}
+
+void GameScreenLevel1::RecordScore(int score)
+{
+	ofstream OutFile;
+
+	OutFile.open("Score.txt", ios::out | ios::app);
+	OutFile.clear();
+	OutFile << score << endl;
+	OutFile.close();
 }
