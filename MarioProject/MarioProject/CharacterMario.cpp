@@ -34,8 +34,6 @@ void CharacterMario::Render()
 	//determine where you want it drawn
 	SDL_Rect destRect = { (int)(m_position.x),(int)(m_position.y),
 	m_single_sprite_w, m_single_sprite_h };
-
-
 	
 //then draw it facing the correct diretion
 	if (m_facing_direction == FACING_RIGHT)
@@ -46,8 +44,6 @@ void CharacterMario::Render()
 	{
 		m_texture->Render(portion_of_sprite, destRect, SDL_FLIP_HORIZONTAL);
 	}
-	
-
 }
 
 void CharacterMario::Update(float deltaTime, SDL_Event e)

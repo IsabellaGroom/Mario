@@ -22,6 +22,8 @@ GameScreenLevel2::~GameScreenLevel2()
 	delete Mario;
 	Mario = nullptr;
 
+	SDL_FreeSurface(t_message);
+	TTF_CloseFont(t_font);
 
 }
 
@@ -66,6 +68,10 @@ bool GameScreenLevel2::SetUpLevel()
 	CreateKoopa(Vector2D(100, 330), FACING_LEFT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(185, 182), FACING_RIGHT, KOOPA_SPEED);
 
+	//Load text
+	t_font = TTF_OpenFont("SuperMario.ttf", 26);
+	t_text = "Score: " + to_string(score);
+
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
 	if (!m_background_texture->LoadFromFile("Images/BackgroundUG.png"))
@@ -73,6 +79,7 @@ bool GameScreenLevel2::SetUpLevel()
 		std::cout << "Failed to load background texture" << std::endl;
 		return false;
 	}
+
 
 	return true;
 
@@ -122,6 +129,8 @@ void GameScreenLevel2::Render()
 			m_coins[i]->Render();
 		}
 	}
+	//draws characters
+	Mario->Render();
 
 	//draw enemies
 	for (int i = 0; i < m_enemies.size(); i++)
@@ -129,8 +138,26 @@ void GameScreenLevel2::Render()
 		m_enemies[i]->Render();
 
 	}
-	//draws characters
-	Mario->Render();
+
+
+	//Draw text
+	SDL_QueryTexture(t_texture, NULL, NULL, &t_width, &t_height);
+	SDL_Rect tempRect = { 0,0,t_width, t_height };
+
+
+	t_message = TTF_RenderText_Solid(t_font, t_text.c_str(), t_colour);
+	if (t_message == NULL)
+	{
+		cout << "Unable to render text ", TTF_GetError();
+	}
+	else
+	{
+		t_texture = SDL_CreateTextureFromSurface(m_renderer, t_message);
+	}
+
+
+	SDL_RenderCopy(m_renderer, t_texture, NULL, &tempRect);
+	SDL_RenderPresent(m_renderer);
 
 }
 
@@ -159,7 +186,8 @@ void GameScreenLevel2::Update(float deltaTimer, SDL_Event e)
 	Mario->Update(deltaTimer, e);
 
 	UpdateEnemies(deltaTimer, e);
-	//cout << Mario->GetPosition().x << endl;
+
+	t_text = "Score: " + to_string(score);
 }
 
 void GameScreenLevel2::UpdateEnemies(float deltaTime, SDL_Event e)

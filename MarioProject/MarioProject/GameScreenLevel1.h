@@ -50,6 +50,10 @@ private:
 	TTF_Font* t_font = NULL;
 	SDL_Color t_colour = { 255,255,255 };
 	SDL_Surface* t_message = NULL;
+	SDL_Texture* t_texture;
+	int t_width = 0;
+	int t_height = 0;
+	std::string t_text;
 
 	//methods
 	bool SetUpLevel();

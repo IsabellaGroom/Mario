@@ -10,6 +10,7 @@
 #include <vector>
 #include "SoundFX.h"
 #include "Music.h"
+#include "SDL_ttf.h"
 
 class CharacterMario;
 class Texture2D;
@@ -32,6 +33,15 @@ private:
 	SoundFX* m_coinFX;
 	SoundFX* m_OverFX;
 	Music* m_background;
+
+	//Text
+	TTF_Font* t_font = NULL;
+	SDL_Color t_colour = { 255,255,255 };
+	SDL_Surface* t_message = NULL;
+	SDL_Texture* t_texture;
+	int t_width = 0;
+	int t_height = 0;
+	std::string t_text;
 
 	float m_background_yPos;
 

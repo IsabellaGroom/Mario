@@ -1,18 +1,7 @@
-﻿  GameScreenLevel1.cpp
+﻿  GameScreenLevel2.cpp
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(103,20): warning C4018: '<': signed/unsigned mismatch
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(116,20): warning C4018: '<': signed/unsigned mismatch
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(159,20): warning C4018: '<': signed/unsigned mismatch
-E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel1.cpp(227,20): warning C4018: '<': signed/unsigned mismatch
-  GameScreenManager.cpp
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Uni\Mario\MarioProject\MarioProject\Character.h(56,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-GameScreenLevel1.obj : error LNK2019: unresolved external symbol _TTF_OpenFont referenced in function "private: bool __thiscall GameScreenLevel1::SetUpLevel(void)" (?SetUpLevel@GameScreenLevel1@@AAE_NXZ)
-GameScreenLevel1.obj : error LNK2019: unresolved external symbol _TTF_RenderText_Solid referenced in function "public: virtual void __thiscall GameScreenLevel1::Render(void)" (?Render@GameScreenLevel1@@UAEXXZ)
-GameScreenLevel1.obj : error LNK2019: unresolved external symbol _TTF_CloseFont referenced in function "public: __thiscall GameScreenLevel1::~GameScreenLevel1(void)" (??1GameScreenLevel1@@QAE@XZ)
-Source.obj : error LNK2019: unresolved external symbol _TTF_Init referenced in function "bool __cdecl InitSDL(void)" (?InitSDL@@YA_NXZ)
-Source.obj : error LNK2019: unresolved external symbol _TTF_Quit referenced in function "void __cdecl CloseSDL(void)" (?CloseSDL@@YAXXZ)
-SDL2\SDL\SDL2_ttf.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
-E:\Uni\Mario\MarioProject\Debug\MarioProject.exe : fatal error LNK1120: 5 unresolved externals
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel2.cpp(125,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel2.cpp(136,20): warning C4018: '<': signed/unsigned mismatch
+E:\Uni\Mario\MarioProject\MarioProject\GameScreenLevel2.cpp(169,20): warning C4018: '<': signed/unsigned mismatch
+  MarioProject.vcxproj -> E:\Uni\Mario\MarioProject\Debug\MarioProject.exe

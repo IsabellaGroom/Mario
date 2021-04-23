@@ -1,12 +1,13 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-#include <SDL_ttf.h>
+#include "SDL_ttf.h"
 #include "constants.h"
 #include "Commons.h"
 #include "Texture2D.h"
 #include "GameScreenManager.h"
 #include <iostream>
+
 
 using namespace std;
 
@@ -51,7 +52,7 @@ bool InitSDL()
 
 	//SetupSDL
 	//Flags return 0 on success
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) > 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVERYTHING) > 0)
 	{
 		cout << "SDL did not initialise. Error: " << SDL_GetError();
 		return false;
@@ -121,9 +122,10 @@ void CloseSDL()
 	g_window = nullptr;
 
 	//quit SDL subsystems
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
-	TTF_Quit();
+	
 
 	//destroy the game screen manager
 	delete game_screen_manager;
@@ -197,54 +199,4 @@ void Render()
 
 }
 
-
-//cleans up any memory used
-/*
-void FreeTexture()
-{
-	//check if texture exists before removing it
-	if (g_texture != nullptr)
-	{
-		SDL_DestroyTexture(g_texture);
-		g_texture = nullptr;
-	}
-}
-*/
-
-/*SDL events:
-* SDL_QUIT
-* SDL_KEYDOWN
-* SDL_KEYUP
-* SDL_MOUSEMOTION
-* SDL_MOUSEBUTTONDOWN
-* SDL_MOUSEBUTTONUP
-*/
-
-/* Create Window:
-* returns pointer
-* 1st- string displayed at top of window
-* 2nd- screen position X
-* 3rd- screen position Y
-* Use SDL_WINDOW_UNDEFINED to not set position
-* 4th- int width
-* 5th- int height
-* Final- flag to state whether window should be instantly shown
-*
-* Useful flags:
-* SDL_WINDOW_FULLSCREEN
-* SDL_WINDOW_INPUT_FOCUS
-* SDL_WINDOW_mOUSE_FOCUS
-*/
-
-/*SDL_CreateRenderer
-*(window,
-*index of rendering driver[-1 initialises the first one supporting flags]
-* combination of SDL_RenderFlags)
-* Flags:
-* SDL_RENDER_
-* SOFTWARE renderer = software fallback
-* ACCELERATED renderer uses hardware accleration
-* PRESENTVSYNC present is synchronized with refresh rate
-* TARGETTEXTURE renderer supports rendering to texture
-*/
 

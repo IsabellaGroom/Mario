@@ -8,7 +8,7 @@
 #include "Collisions.h"
 #include "PowBlock.h"
 #include "Commons.h"
-#include <SDL_ttf.h>
+
 
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
@@ -76,9 +76,9 @@ bool GameScreenLevel1::SetUpLevel()
 	m_screenshake = false;
 	m_background_yPos = 0.0f;
 	
-	//Text variables
-	t_font = TTF_OpenFont("SuperMario.ttf", 28);
-
+	//Load text
+	t_font = TTF_OpenFont("SuperMario.ttf", 26);
+	t_text = "Score: " + to_string(score);
 
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
@@ -96,7 +96,9 @@ void GameScreenLevel1::Render()
 	//draw the background
 	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
 
-	t_message = TTF_RenderText_Solid(t_font, "Score :", t_colour);
+	//draws characters
+	Mario->Render();
+	Luigi->Render();
 
 
 	//draw coins
@@ -116,21 +118,32 @@ void GameScreenLevel1::Render()
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
 			m_enemies[i]->Render();
-		
 	}
 
-	//draws characters
-	Mario->Render();
-	Luigi->Render();
+
+	//Draw text
+	SDL_QueryTexture(t_texture, NULL, NULL, &t_width, &t_height);
+	SDL_Rect tempRect = { 0,0,t_width, t_height };
 
 
+	t_message = TTF_RenderText_Solid(t_font, t_text.c_str(), t_colour);
+	if (t_message == NULL)
+	{
+		cout << "Unable to render text ", TTF_GetError();
+	}
+	else
+	{
+		t_texture = SDL_CreateTextureFromSurface(m_renderer, t_message);
+	}
+
+
+	SDL_RenderCopy(m_renderer, t_texture, NULL, &tempRect);
+	SDL_RenderPresent(m_renderer);
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
 	m_background->Play();
-
-	cout << score << endl;
 	//shake screen
 	if (m_screenshake)
 	{
@@ -172,8 +185,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 		}
 	}
 
-	//cout << m_level_map->GetTileAt(Mario->GetPosition().x, Mario->GetPosition().y) << endl;
-	cout << Mario->GetPosition().x << endl;
+	t_text = "Score: " + to_string(score);
 }
 
 void GameScreenLevel1::SetLevelMap()
@@ -315,6 +327,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 		cout << "No enemies" << endl;
 		if (Mario->GetPosition().x <= 300)
 		{
+			m_background->Stop();
 			RecordScore(score);
 			isSwitching = true;
 		}
